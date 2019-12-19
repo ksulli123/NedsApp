@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import Timer from "./Timer";
 
 class Race extends React.Component {
   constructor(props) {
@@ -7,9 +8,28 @@ class Race extends React.Component {
     this.state = {
       remainingTime:
         this.props.item.advertised_start.seconds -
-        Math.round(new Date().getTime() / 1000)
+        Math.round(new Date().getTime() / 1000),
+      timer: null
     };
   }
+
+  componentDidMount() {
+    let timer = setInterval(this.tick, 1000);
+    this.setState({ timer });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.timer);
+  }
+
+  tick = () => {
+    this.setState({
+      remainingTime: this.state.remainingTime - 1
+    });
+    if (this.state.remainingTime < 60) {
+      this.props.onDelete(this.props.index, this.props.selected);
+    }
+  };
 
   render() {
     const { item } = this.props;
@@ -24,7 +44,7 @@ class Race extends React.Component {
           {item.meeting_name}
         </Text>
         <Text styles={styles.itemTop}>R{item.race_number}</Text>
-        <Text style={styles.time}>{this.state.remainingTime}</Text>
+        <Timer remainingTime={this.state.remainingTime} />
       </TouchableOpacity>
     );
   }
@@ -43,7 +63,8 @@ const styles = StyleSheet.create({
   },
   itemTop: {
     fontFamily: "Arial",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    paddingLeft: 10
   },
   time: {
     justifyContent: "center"

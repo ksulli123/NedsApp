@@ -1,10 +1,21 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 const Timer = props => {
+  const getTime = time => {
+    return (
+      <Text>
+        {Math.round(time / 60)}m {time % 60}s
+      </Text>
+    );
+  };
+
   return (
     <View>
-      <Text>{getTime(props.remainingTime)}</Text>
+      <Text style={{ alignItems: "baseline" }}>
+        {"\n"}
+        {getTime(props.remainingTime)}
+      </Text>
     </View>
   );
 };

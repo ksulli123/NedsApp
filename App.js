@@ -86,15 +86,19 @@ class App extends Component {
     if (selected === "Horse") return this.state.Horse;
   };
 
+  handleDelete = (index, selected) => {
+    var temp = this.state[selected].filter((item, j) => j !== index);
+
+    console.log(temp);
+    this.setState({ [selected]: temp });
+  };
+
   render() {
     const { loading } = this.state;
-
-    console.log(this.state.selected);
     const items = this.getItems(this.state.selected);
     const sortedItems = items.sort(
       (a, b) => a.advertised_start.seconds - b.advertised_start.seconds
     );
-    console.log(items);
     return (
       <View>
         <Text style={{ fontSize: 20, position: "relative" }}>
@@ -113,9 +117,17 @@ class App extends Component {
         </Picker>
         <View style={styles.container}>
           {loading ? (
-            <Text>test1</Text>
+            <Text>Loading Races...</Text>
           ) : (
-            sortedItems.map((item, index) => <Race key={index} item={item} />)
+            sortedItems.map((item, index) => (
+              <Race
+                onDelete={this.handleDelete}
+                key={index}
+                index={index}
+                selected={this.state.selected}
+                item={item}
+              />
+            ))
           )}
         </View>
       </View>
@@ -130,8 +142,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "flex-start",
-    marginTop: 200,
-    width: "100%"
+    marginTop: 200
   },
   picker: {
     height: 50,
@@ -139,23 +150,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     display: "flex",
     fontSize: 14
-  },
-  item: {
-    padding: 10,
-    width: 180,
-    height: 80,
-    backgroundColor: "#ccc",
-    margin: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    shadowColor: "#ccc"
-  },
-  itemTop: {
-    fontFamily: "Arial",
-    justifyContent: "space-between"
-  },
-  time: {
-    justifyContent: "center"
   }
 });
 
