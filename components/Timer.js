@@ -12,7 +12,12 @@ const Timer = props => {
 
   return (
     <View>
-      <Text style={{ alignItems: "baseline" }}>
+      <Text
+        style={{
+          textAlignVertical: "center",
+          textAlign: "center"
+        }}
+      >
         {"\n"}
         {getTime(props.remainingTime)}
       </Text>

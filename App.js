@@ -29,6 +29,7 @@ class App extends Component {
       loading: true
     };
     this.getItems = this.getItems.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   //Fetch contents
@@ -89,7 +90,7 @@ class App extends Component {
   handleDelete = (index, selected) => {
     var temp = this.state[selected].filter((item, j) => j !== index);
 
-    console.log(temp);
+    console.log(index);
     this.setState({ [selected]: temp });
   };
 
@@ -142,7 +143,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "flex-start",
-    marginTop: 200
+    marginTop: 200,
+    width: "100%"
   },
   picker: {
     height: 50,

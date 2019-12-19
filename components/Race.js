@@ -26,7 +26,8 @@ class Race extends React.Component {
     this.setState({
       remainingTime: this.state.remainingTime - 1
     });
-    if (this.state.remainingTime < 60) {
+    if (this.state.remainingTime < 1200) {
+      console.log(this.props.index);
       this.props.onDelete(this.props.index, this.props.selected);
     }
   };
@@ -59,11 +60,11 @@ const styles = StyleSheet.create({
     margin: 10,
     flexDirection: "row",
     justifyContent: "space-between",
-    shadowColor: "#ccc"
+    shadowColor: "#ccc",
+    overflow: "hidden"
   },
   itemTop: {
     fontFamily: "Arial",
-    justifyContent: "space-between",
     paddingLeft: 10
   },
   time: {
