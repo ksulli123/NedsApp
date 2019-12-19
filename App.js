@@ -102,9 +102,6 @@ class App extends Component {
     );
     return (
       <View>
-        <Text style={{ fontSize: 20, position: "relative" }}>
-          Upcoming Races:
-        </Text>
         <Picker
           selectedValue={this.state.selected}
           style={styles.picker}
@@ -116,6 +113,16 @@ class App extends Component {
           <Picker.Item label="Harness" value="Harness" />
           <Picker.Item label="Horse" value="Horse" />
         </Picker>
+        <Text
+          style={{
+            fontSize: 20,
+            marginTop: 300,
+            marginLeft: 50,
+            marginBottom: 0
+          }}
+        >
+          Upcoming Races:
+        </Text>
         <View style={styles.container}>
           {loading ? (
             <Text>Loading Races...</Text>
@@ -143,7 +150,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "flex-start",
-    marginTop: 200,
+    marginTop: 50,
     width: "100%"
   },
   picker: {
@@ -151,7 +158,8 @@ const styles = StyleSheet.create({
     width: 180,
     position: "absolute",
     display: "flex",
-    fontSize: 14
+    fontSize: 14,
+    margin: 20
   }
 });
 
