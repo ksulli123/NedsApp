@@ -28,6 +28,7 @@ class App extends Component {
       selected: "GreyHound",
       loading: true
     };
+    //Bind functions
     this.getItems = this.getItems.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
@@ -67,26 +68,22 @@ class App extends Component {
                 Horse.push(this.state.races[key]);
               }
             }
-            this.setState({ GreyHound }, () => {
-              //console.log(this.state.GreyHound);
-            });
-            this.setState({ Harness }, () => {
-              //console.log(this.state.Harness);
-            });
-            this.setState({ Horse }, () => {
-              //console.log(this.state.Horse);
-            });
+            this.setState({ GreyHound });
+            this.setState({ Harness });
+            this.setState({ Horse });
           }
         )
       );
   }
 
+  //Retrieve the correct array based on selected category
   getItems = selected => {
     if (selected === "GreyHound") return this.state.GreyHound;
     if (selected === "Harness") return this.state.Harness;
     if (selected === "Horse") return this.state.Horse;
   };
 
+  //Dynamically delete array item based on index and selected category
   handleDelete = (index, selected) => {
     var temp = this.state[selected].filter((item, j) => j !== index);
 
@@ -97,6 +94,7 @@ class App extends Component {
   render() {
     const { loading } = this.state;
     const items = this.getItems(this.state.selected);
+    //Time ascending sort
     const sortedItems = items.sort(
       (a, b) => a.advertised_start.seconds - b.advertised_start.seconds
     );

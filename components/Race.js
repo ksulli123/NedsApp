@@ -13,15 +13,18 @@ class Race extends React.Component {
     };
   }
 
+  //Start timer
   componentDidMount() {
     let timer = setInterval(this.tick, 1000);
     this.setState({ timer });
   }
 
+  //Remove timer on component unmounting
   componentWillUnmount() {
     clearInterval(this.state.timer);
   }
 
+  //Remove 1 second from the remaining time, check if new time is less than 60 seconds
   tick = () => {
     this.setState({
       remainingTime: this.state.remainingTime - 1

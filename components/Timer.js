@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text } from "react-native";
 
 const Timer = props => {
+  //Display in minute, second format
   const getTime = time => {
     return (
       <Text>
