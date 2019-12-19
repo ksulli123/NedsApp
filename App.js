@@ -5,8 +5,10 @@ import {
   View,
   ScrollView,
   Picker,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform
 } from "react-native";
+import Race from "./components/Race";
 
 const raceCategories = {
   GreyHound: "9daef0d7-bf3c-4f50-921d-8e818c60fe61",
@@ -95,6 +97,9 @@ class App extends Component {
     console.log(items);
     return (
       <View>
+        <Text style={{ fontSize: 20, position: "relative" }}>
+          Upcoming Races:
+        </Text>
         <Picker
           selectedValue={this.state.selected}
           style={styles.picker}
@@ -110,26 +115,7 @@ class App extends Component {
           {loading ? (
             <Text>test1</Text>
           ) : (
-            sortedItems.map((item, index) => (
-              <TouchableOpacity key={index} style={styles.item}>
-                <Text
-                  style={{ fontFamily: "Academy Engraved LET" }}
-                  styles={styles.itemTop}
-                >
-                  {item.meeting_name}
-                </Text>
-                <Text styles={styles.itemTop}>R{item.race_number}</Text>
-                <Text style={styles.time}>
-                  {"\n"}
-                  {item.advertised_start.seconds -
-                    Math.round(new Date().getTime() / 1000)}
-                  {console.log(
-                    item.advertised_start.seconds -
-                      Math.round(new Date().getTime() / 1000)
-                  )}
-                </Text>
-              </TouchableOpacity>
-            ))
+            sortedItems.map((item, index) => <Race key={index} item={item} />)
           )}
         </View>
       </View>
