@@ -26,7 +26,7 @@ class Race extends React.Component {
     this.setState({
       remainingTime: this.state.remainingTime - 1
     });
-    if (this.state.remainingTime < 1200) {
+    if (this.state.remainingTime < 60) {
       console.log(this.props.index);
       this.props.onDelete(this.props.index, this.props.selected);
     }
