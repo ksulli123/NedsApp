@@ -68,12 +68,21 @@ class App extends Component {
                 Horse.push(this.state.races[key]);
               }
             }
+            GreyHound = this.sortByTime(GreyHound);
+            Harness = this.sortByTime(Harness);
+            Horse = this.sortByTime(Horse);
             this.setState({ GreyHound });
             this.setState({ Harness });
             this.setState({ Horse });
           }
         )
       );
+  }
+
+  sortByTime(arr) {
+    return (arr = arr.sort(
+      (a, b) => b.advertised_start.seconds - a.advertised_start.seconds
+    ));
   }
 
   //Retrieve the correct array based on selected category
@@ -87,17 +96,13 @@ class App extends Component {
   handleDelete = (index, selected) => {
     var temp = this.state[selected].filter((item, j) => j !== index);
 
-    console.log(index);
     this.setState({ [selected]: temp });
   };
 
   render() {
-    const { loading } = this.state;
+    const { loading, selected } = this.state;
     const items = this.getItems(this.state.selected);
     //Time ascending sort
-    const sortedItems = items.sort(
-      (a, b) => a.advertised_start.seconds - b.advertised_start.seconds
-    );
     return (
       <View>
         <Picker
@@ -125,7 +130,7 @@ class App extends Component {
           {loading ? (
             <Text>Loading Races...</Text>
           ) : (
-            sortedItems.map((item, index) => (
+            this.state[selected].map((item, index) => (
               <Race
                 onDelete={this.handleDelete}
                 key={index}

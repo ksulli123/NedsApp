@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, StyleSheet, View } from "react-native";
 import Timer from "./Timer";
 
 class Race extends React.Component {
@@ -9,18 +9,13 @@ class Race extends React.Component {
       remainingTime:
         this.props.item.advertised_start.seconds -
         Math.round(new Date().getTime() / 1000),
-      timer: null
+      timer: setInterval(this.tick, 1000)
     };
-  }
-
-  //Start timer
-  componentDidMount() {
-    let timer = setInterval(this.tick, 1000);
-    this.setState({ timer });
   }
 
   //Remove timer on component unmounting
   componentWillUnmount() {
+    console.log("Unmounting index: " + this.props.index);
     clearInterval(this.state.timer);
   }
 
@@ -29,8 +24,7 @@ class Race extends React.Component {
     this.setState({
       remainingTime: this.state.remainingTime - 1
     });
-    if (this.state.remainingTime < 60) {
-      console.log(this.props.index);
+    if (this.state.remainingTime < 420 || this.state.remainingTime < 0) {
       this.props.onDelete(this.props.index, this.props.selected);
     }
   };
@@ -39,16 +33,21 @@ class Race extends React.Component {
     const { item } = this.props;
     return (
       <TouchableOpacity style={styles.item}>
-        <Text
-          style={{
-            fontFamily: Platform.OS === "ios" ? "Arial-BoldMT" : "sans-serif"
-          }}
-          styles={styles.itemTop}
-        >
-          {item.meeting_name}
-        </Text>
-        <Text styles={styles.itemTop}>R{item.race_number}</Text>
-        <Timer remainingTime={this.state.remainingTime} />
+        <View style={styles.raceContainer}>
+          <Text
+            style={{
+              fontFamily: Platform.OS === "ios" ? "Arial-BoldMT" : "sans-serif",
+              fontSize: 16,
+              marginBottom: 10,
+              justifyContent: "center"
+            }}
+            styles={styles.itemTop}
+          >
+            {item.meeting_name}
+          </Text>
+          <Text styles={styles.itemTop}>R{item.race_number}</Text>
+          <Timer remainingTime={this.state.remainingTime} />
+        </View>
       </TouchableOpacity>
     );
   }
@@ -64,14 +63,24 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     shadowColor: "#ccc",
-    overflow: "hidden"
+    overflow: "hidden",
+    justifyContent: "center",
+
+    shadowOffset: { width: 10, height: 10 },
+    shadowColor: "black",
+    shadowOpacity: 1.0
   },
   itemTop: {
     fontFamily: "Arial",
-    paddingLeft: 10
+    paddingLeft: 10,
+    left: 10
   },
   time: {
-    justifyContent: "center"
+    justifyContent: "center",
+    display: "none"
+  },
+  raceContainer: {
+    flexWrap: "wrap"
   }
 });
 
