@@ -46,6 +46,7 @@ https://github.com/styled-components/styled-components/issues/2674
 The unit testing was completed using jest. The following unit tests were added:
 * Seeing if fetching against the given API would retrieve anything. If the returned json object was null then the test fails.
 * Seeing if the timer worked then called a function that would filter the given array. The test would fail if the returned array was not shorter by 1 of length.
+Testing can be completed by typing in npm test.
 
 # Redux
 Although the layer of redux logic was implemented to add the currently selected race catogory (See previous commit) from and to the redux store, it would not work with the app. 
