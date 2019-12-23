@@ -34,7 +34,7 @@ https://github.com/styled-components/styled-components/issues/1974
 https://github.com/styled-components/styled-components/issues/2674
 
 # Incompletions / Things that can be improved:
-* Perhaps based on the method of storing the each array and then subsequently rendering, when the filtering (although tested thoroughly and should be working) function onDelete is called instead of correctly removing the race as the correct index, similar to the LIFO pop is done. The function is then recursively called for some reason until the correct item at the index is deleted, effectively removing all the race items. Currently the races are displayed as time descending where the LIFO pop filter approach does delete the correct index.
+* Perhaps based on the method of storing the each array and then subsequently rendering, when the filtering (although tested thoroughly and should be working) function onDelete is called instead of correctly removing the race as the correct index, similar to the FIFO pop is done. The function is then recursively called for some reason until the correct item at the index is deleted, effectively removing all the race items. Currently the races are displayed as time descending where the FIFO pop filter approach does delete the correct index.
 
 * Putting an emphasis on functionality, the UI can be improved.
 
